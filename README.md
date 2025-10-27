@@ -19,55 +19,64 @@ If you are developing a production application, we recommend updating the config
 export default defineConfig([
   globalIgnores(['dist']),
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Atomic Todo — Atomic Design To-Do App
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Quick start (run first)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Install dependencies
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Start development server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+3. Run tests
+
+```bash
+npm test
+```
+
+4. (Optional) Run with Docker Compose
+
+```bash
+npm run docker:build
+npm run docker:up
+```
+
+Project overview
+
+This repository implements a small To-Do application using Atomic Design principles with React + TypeScript and Vite.
+
+Highlights
+
+- Atomic Design structure: `src/components/{atoms,molecules,organisms,templates,pages}`
+- TypeScript interfaces (see `src/types/Task.ts`)
+- Persistent tasks using `localStorage` (key: `tasks`)
+- Responsive, card-based UI with animations
+- Unit tests with Jest + React Testing Library
+
+How this meets the challenge
+
+- Project is organized by Atomic Design layers.
+- The `Task` interface and all component props are typed with TypeScript.
+- Core features implemented: add task, edit task, mark as completed, delete task, persist tasks in localStorage.
+- Styling follows an atomic approach: atoms are tiny controls (Button, Input, Checkbox), molecules compose atoms (TaskItem), organisms group molecules (TaskList), templates provide page framing (MainTemplate), pages handle state and flows (HomePage).
+
+Notes & implementation details
+
+- localStorage initialization uses a safe lazy state initializer to avoid overwriting data during mount.
+- Tests: unit tests cover add, toggle, and delete flows. Run with `npm test`.
+- Linting and formatting: `npm run lint` and `npm run format` are available.
+
+Next improvements (optional)
+
+- Add a "Remove completed tasks" action button (can be added to `HomePage`).
+- Add CI (GitHub Actions) to run tests on PRs.
+- Production Dockerfile (multi-stage) to build and serve the static site via nginx.
+
+If you want any of those, tell me which one and I'll add it.
