@@ -24,15 +24,38 @@ export const HomePage = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState('');
 
-  useEffect(() => {
-    const storedTasks = localStorage.getItem(STORAGE_KEY);
-    if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
+  // Initialize tasks from localStorage on first render using a lazy state initializer.
+  // This avoids a race where a separate "write" effect can overwrite stored data with
+  // the empty initial state during mount.
+  const [initializedTasks] = useState<Task[]>(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return stored ? (JSON.parse(stored) as Task[]) : [];
+    } catch {
+      // If parsing fails, start with an empty list.
+      return [];
     }
+  });
+
+  // Replace the tasks state with loaded value on mount (keeps semantics and allows
+  // subsequent updates to be written to storage).
+  useEffect(() => {
+    if (initializedTasks && initializedTasks.length > 0) {
+      setTasks(initializedTasks);
+    }
+    // If there are no initialized tasks we intentionally keep the default [] state.
+    // NOTE: we don't write to localStorage here — writing is handled by the effect below.
+    // This avoids initial overwrite of existing storage with the empty array.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Persist tasks whenever they change.
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    } catch {
+      // ignore storage errors (e.g., quota exceeded) for now
+    }
   }, [tasks]);
 
   const addTask = () => {

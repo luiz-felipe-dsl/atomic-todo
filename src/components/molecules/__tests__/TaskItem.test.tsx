@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { TaskItem } from './TaskItem';
+import { TaskItem } from '../TaskItem';
 
 const mockTask = {
   id: '1',

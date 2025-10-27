@@ -12,7 +12,7 @@ interface TaskItemProps {
   onEdit: (id: string, newName: string) => void;
 }
 
-const StyledTaskItem = styled.div<{ completed: boolean }>`
+const StyledTaskItem = styled.div<{ $completed: boolean }>`
   display: flex;
   align-items: center;
   padding: 1rem 1.5rem;
@@ -30,7 +30,7 @@ const StyledTaskItem = styled.div<{ completed: boolean }>`
     border-color: #667eea20;
   }
 
-  ${props => props.completed && `
+  ${props => props.$completed && `
     background: #f7fafc;
     border-color: #e2e8f0;
     
@@ -40,12 +40,12 @@ const StyledTaskItem = styled.div<{ completed: boolean }>`
   `}
 `;
 
-const TaskText = styled.span<{ completed: boolean }>`
+const TaskText = styled.span<{ $completed: boolean }>`
   margin: 0 1rem;
   flex: 1;
   font-size: 1rem;
-  color: ${props => props.completed ? '#a0aec0' : '#4a5568'};
-  text-decoration: ${props => props.completed ? 'line-through' : 'none'};
+  color: ${props => props.$completed ? '#a0aec0' : '#4a5568'};
+  text-decoration: ${props => props.$completed ? 'line-through' : 'none'};
   transition: all 0.2s ease;
 `;
 
@@ -66,7 +66,7 @@ export const TaskItem = ({ task, onToggle, onDelete, onEdit }: TaskItemProps) =>
   };
 
   return (
-    <StyledTaskItem completed={task.completed}>
+  <StyledTaskItem $completed={task.completed}>
       <Checkbox 
         checked={task.completed}
         onChange={() => onToggle(task.id)}
@@ -77,7 +77,7 @@ export const TaskItem = ({ task, onToggle, onDelete, onEdit }: TaskItemProps) =>
           onChange={(e) => setEditValue(e.target.value)}
         />
       ) : (
-        <TaskText completed={task.completed}>{task.name}</TaskText>
+        <TaskText $completed={task.completed}>{task.name}</TaskText>
       )}
       <ButtonGroup>
         <Button onClick={handleEdit}>
