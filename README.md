@@ -1,82 +1,75 @@
-# React + TypeScript + Vite
+# Atomic Todo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern todo application built with React, TypeScript and Vite, following Atomic Design principles.
 
-Currently, two official plugins are available:
+## Quick Start 🚀
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-# Atomic Todo — Atomic Design To-Do App
-
-Quick start (run first)
-
-1. Install dependencies
+### Local Development
 
 ```bash
+# Install dependencies
 npm install
-```
 
-2. Start development server
-
-```bash
+# Start development server
 npm run dev
-```
 
-3. Run tests
-
-```bash
+# Run tests
 npm test
 ```
 
-4. (Optional) Run with Docker Compose
+### Docker (Optional)
 
 ```bash
+# Build and start containers
 npm run docker:build
 npm run docker:up
 ```
 
-Project overview
+## Features ✨
 
-This repository implements a small To-Do application using Atomic Design principles with React + TypeScript and Vite.
+- 🎯 Built with Atomic Design principles
+- 📱 Responsive, card-based UI with animations
+- 💾 Task persistence using localStorage
+- 🧪 Unit tests with Jest + React Testing Library
+- 🔒 Type-safe with TypeScript
+- ⚡ Lightning fast with Vite
 
-Highlights
+## Project Structure 🏗️
 
-- Atomic Design structure: `src/components/{atoms,molecules,organisms,templates,pages}`
-- TypeScript interfaces (see `src/types/Task.ts`)
-- Persistent tasks using `localStorage` (key: `tasks`)
-- Responsive, card-based UI with animations
-- Unit tests with Jest + React Testing Library
+```
+src/
+  components/
+    atoms/        # Basic building blocks (Button, Input, Checkbox)
+    molecules/    # Simple component combinations (TaskItem)
+    organisms/    # Complex components (TaskList)
+    templates/    # Page layouts (MainTemplate)
+    pages/        # Full pages with state management (HomePage)
+  types/         # TypeScript interfaces
+  assets/        # Static files
+```
 
-How this meets the challenge
+## Technical Details 🛠️
 
-- Project is organized by Atomic Design layers.
-- The `Task` interface and all component props are typed with TypeScript.
-- Core features implemented: add task, edit task, mark as completed, delete task, persist tasks in localStorage.
-- Styling follows an atomic approach: atoms are tiny controls (Button, Input, Checkbox), molecules compose atoms (TaskItem), organisms group molecules (TaskList), templates provide page framing (MainTemplate), pages handle state and flows (HomePage).
+- **State Management**: Tasks are stored in `localStorage` (key: `tasks`)
+- **Type Safety**: All components and interfaces are fully typed
+- **Testing**: Unit tests cover core flows (add/edit/delete tasks)
+- **Styling**: Component-scoped styles following atomic principles
 
-Notes & implementation details
+## Development Commands 💻
 
-- localStorage initialization uses a safe lazy state initializer to avoid overwriting data during mount.
-- Tests: unit tests cover add, toggle, and delete flows. Run with `npm test`.
-- Linting and formatting: `npm run lint` and `npm run format` are available.
+```bash
+npm run dev          # Start development server
+npm test            # Run test suite
+npm run lint        # Run ESLint
+npm run format      # Format code with Prettier
+```
 
-Next improvements (optional)
+## Roadmap 🗺️
 
-- Add a "Remove completed tasks" action button (can be added to `HomePage`).
-- Add CI (GitHub Actions) to run tests on PRs.
-- Production Dockerfile (multi-stage) to build and serve the static site via nginx.
+- [ ] Add "Remove completed tasks" button
+- [ ] Set up CI/CD pipeline with GitHub Actions
+- [ ] Create production Docker setup with nginx
 
-If you want any of those, tell me which one and I'll add it.
+## License 📝
+
+MIT
