@@ -1,9 +1,13 @@
 export default {
+  // project root (jest resolves <rootDir> relative to this file),
+  // setting it to the repository root ensures paths like <rootDir>/src/... work
+  rootDir: '../',
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   globals: {
     'ts-jest': {
-      tsconfig: 'tsconfig.jest.json'
+      // point to the tsconfig inside the config folder from the project root
+      tsconfig: '<rootDir>/config/tsconfig.jest.json'
     }
   },
   transform: {
