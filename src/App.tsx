@@ -2,10 +2,17 @@ import { createGlobalStyle } from 'styled-components';
 import { HomePage } from './components/pages/HomePage';
 
 const GlobalStyle = createGlobalStyle`
+  /* Reset básico */
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   body {
@@ -13,10 +20,12 @@ const GlobalStyle = createGlobalStyle`
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #2d3748;
     line-height: 1.5;
-    min-height: 100vh;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
+  /* Animações globais */
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -58,4 +67,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

@@ -4,9 +4,17 @@ interface MainTemplateProps {
   children: React.ReactNode;
 }
 
+const PageWrapper = styled.div`
+  min-height: 100vh;
+  display: flex; /* corrigido */
+  align-items: center; /* centraliza verticalmente */
+  justify-content: center; /* centraliza horizontalmente */
+  padding: 2rem;
+`;
+
 const Container = styled.div`
+  width: 100%;
   max-width: 800px;
-  margin: 0 auto;
   padding: 2rem;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
@@ -33,11 +41,13 @@ const Title = styled.h1`
 
 export const MainTemplate = ({ children }: MainTemplateProps) => {
   return (
-    <Container>
-      <Header>
-        <Title>Task Manager</Title>
-      </Header>
-      <main>{children}</main>
-    </Container>
+    <PageWrapper>
+      <Container>
+        <Header>
+          <Title>Task Manager</Title>
+        </Header>
+        <main>{children}</main>
+      </Container>
+    </PageWrapper>
   );
 };
